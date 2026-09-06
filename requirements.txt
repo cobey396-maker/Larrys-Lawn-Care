@@ -1,0 +1,6 @@
+# No third-party packages.
+#
+# The API runs on the Python standard library alone, including its Turso
+# client (backend/app/libsql.py), which talks to the database over plain
+# HTTPS with urllib. That keeps the deployed function free of anything that
+# has to compile at build time, and keeps cold starts short.

@@ -1,11 +1,15 @@
-"""SQLite access: one connection per thread, schema creation, small helpers."""
+"""Database access: one connection per thread, schema creation, small helpers.
+
+Locally this is a SQLite file. In production it is Turso, reached over HTTP by
+the adapter in libsql.py -- same dialect, so every statement below is shared.
+"""
 
 import json
 import sqlite3
 import threading
 from datetime import datetime, timezone
 
-from . import config
+from . import config, libsql
 
 _local = threading.local()
 
@@ -37,7 +41,7 @@ CREATE TABLE IF NOT EXISTS gallery_items (
     caption     TEXT NOT NULL DEFAULT '',
     hint        TEXT NOT NULL DEFAULT '',     -- placeholder text when no photo yet
     alt         TEXT NOT NULL DEFAULT '',
-    image_file  TEXT,                         -- file name inside the uploads dir
+    image_file  TEXT,                         -- references images.name
     position    INTEGER NOT NULL DEFAULT 0,
     published   INTEGER NOT NULL DEFAULT 1,
     created_at  TEXT NOT NULL,
@@ -65,6 +69,14 @@ CREATE TABLE IF NOT EXISTS leads (
 CREATE INDEX IF NOT EXISTS idx_leads_status  ON leads(status, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_leads_created ON leads(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_leads_phone   ON leads(phone_digits, created_at DESC);
+
+CREATE TABLE IF NOT EXISTS images (
+    name        TEXT PRIMARY KEY,       -- random file name, also the public URL
+    mime        TEXT NOT NULL,
+    bytes       BLOB NOT NULL,
+    byte_size   INTEGER NOT NULL,
+    created_at  TEXT NOT NULL
+);
 
 CREATE TABLE IF NOT EXISTS admin_users (
     id             INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -101,20 +113,32 @@ def now():
 def connect():
     conn = getattr(_local, "conn", None)
     if conn is None:
-        config.DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-        conn = sqlite3.connect(str(config.DB_PATH), timeout=10.0)
-        conn.row_factory = sqlite3.Row
-        conn.execute("PRAGMA journal_mode=WAL")
-        conn.execute("PRAGMA foreign_keys=ON")
-        conn.execute("PRAGMA busy_timeout=10000")
+        conn = _connect_turso() if config.USE_TURSO else _connect_sqlite()
         _local.conn = conn
+    return conn
+
+
+def _connect_turso():
+    return libsql.connect(config.TURSO_DATABASE_URL, config.TURSO_AUTH_TOKEN)
+
+
+def _connect_sqlite():
+    config.DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(str(config.DB_PATH), timeout=10.0)
+    conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA journal_mode=WAL")
+    conn.execute("PRAGMA foreign_keys=ON")
+    conn.execute("PRAGMA busy_timeout=10000")
     return conn
 
 
 def close():
     conn = getattr(_local, "conn", None)
     if conn is not None:
-        conn.close()
+        try:
+            conn.close()
+        except Exception:                      # noqa: BLE001 - closing must not raise
+            pass
         _local.conn = None
 
 

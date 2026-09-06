@@ -1,7 +1,7 @@
 """Assembles every route into one router."""
 
-from .. import db
-from ..routing import Response, Router
+from .. import db, images
+from ..routing import HTTPError, Response, Router
 from . import auth, gallery, leads, services, site
 
 router = Router()
@@ -15,6 +15,28 @@ router.include(leads.router)
 @router.get("/api/health")
 def health(request):
     return Response.json({"status": "ok", "time": db.now()})
+
+
+@router.get("/api/images/{name}")
+def serve_image(request):
+    """Gallery photos live in the database, so they are served by the API.
+
+    File names are random and a stored image is never rewritten, which makes
+    the bytes safe to cache in the browser and on Vercel's CDN forever.
+    """
+    row = images.load(request.params.get("name", ""))
+    if row is None:
+        raise HTTPError(404, "No such image.")
+
+    etag = f'"{row["name"]}"'
+    headers = {
+        "Content-Type": row["mime"],
+        "Cache-Control": "public, max-age=31536000, immutable",
+        "ETag": etag,
+    }
+    if request.header("If-None-Match") == etag:
+        return Response(304, b"", headers)
+    return Response(200, bytes(row["bytes"]), headers)
 
 
 @router.get("/api/content")

@@ -1,0 +1,8 @@
+# Local-only database and uploads; production data lives in Turso.
+backend/data/
+backend/uploads/
+
+scripts/
+__pycache__/
+*.pyc
+.venv/

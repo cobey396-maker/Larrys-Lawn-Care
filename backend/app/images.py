@@ -1,12 +1,20 @@
-"""Saving gallery photos: sniff the real type, cap the size, random file name."""
+"""Saving gallery photos: sniff the real type, cap the size, random file name.
 
+Photos are stored as rows rather than files. A Vercel function gets a
+read-only filesystem and a fresh container on every cold start, so anything
+written to disk is gone before the next visitor asks for it. Keeping the bytes
+in the database means the photo Larry uploads is the photo everyone sees, and
+it is covered by the same backup as the rest of the content.
+"""
+
+import re
 import secrets
 
-from . import config
+from . import config, db
 from .routing import HTTPError
 
 # Signature -> (extension, mime). The declared Content-Type is ignored; only
-# the bytes decide, so a renamed .exe cannot land in the uploads folder.
+# the bytes decide, so a renamed .exe cannot land in the gallery.
 SIGNATURES = [
     (b"\xff\xd8\xff", ".jpg", "image/jpeg"),
     (b"\x89PNG\r\n\x1a\n", ".png", "image/png"),
@@ -15,6 +23,10 @@ SIGNATURES = [
 ]
 
 ALLOWED_DESCRIPTION = "JPEG, PNG, GIF or WebP"
+
+# Names are generated here and never taken from the request, so anything that
+# does not look like one we minted is rejected before it reaches the database.
+NAME_RE = re.compile(r"^[0-9a-f]{32}\.(jpg|png|gif|webp)$")
 
 
 def detect(data):
@@ -27,14 +39,14 @@ def detect(data):
 
 
 def save(data):
-    """Writes the image into the uploads dir and returns its file name."""
+    """Stores the image and returns the name that addresses it."""
     if not data:
         raise HTTPError(422, "No image data was uploaded.", fields={"image": "Choose a file."})
     if len(data) > config.MAX_UPLOAD_BYTES:
         limit_mb = config.MAX_UPLOAD_BYTES // (1024 * 1024)
         raise HTTPError(413, f"Images must be smaller than {limit_mb} MB.")
 
-    extension, _ = detect(data)
+    extension, mime = detect(data)
     if extension is None:
         raise HTTPError(
             422,
@@ -42,23 +54,26 @@ def save(data):
             fields={"image": f"Must be {ALLOWED_DESCRIPTION}."},
         )
 
-    config.UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
     name = secrets.token_hex(16) + extension
-    (config.UPLOAD_DIR / name).write_bytes(data)
+    db.execute(
+        "INSERT INTO images (name, mime, bytes, byte_size, created_at) VALUES (?, ?, ?, ?, ?)",
+        (name, mime, data, len(data), db.now()),
+    )
     return name
+
+
+def load(name):
+    """Returns the stored row, or None. Safe to call with untrusted input."""
+    if not name or not NAME_RE.match(name):
+        return None
+    return db.query_one("SELECT name, mime, bytes, byte_size FROM images WHERE name = ?", (name,))
 
 
 def delete(name):
     if not name:
         return
-    target = config.UPLOAD_DIR / name
-    # Guard against a stored name that tries to climb out of the uploads dir.
-    try:
-        target.resolve().relative_to(config.UPLOAD_DIR)
-    except ValueError:
-        return
-    target.unlink(missing_ok=True)
+    db.execute("DELETE FROM images WHERE name = ?", (name,))
 
 
 def url(name):
-    return f"/uploads/{name}" if name else None
+    return f"/api/images/{name}" if name else None

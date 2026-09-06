@@ -1,7 +1,9 @@
-"""The HTTP layer: dispatch to the API router, otherwise serve files.
+"""The HTTP layer for local development: API router first, then static files.
 
-The design folder is served at "/" and the API lives under "/api", so the
-browser sees one origin and CORS never enters the picture.
+The site is served at "/" and the API lives under "/api", so the browser sees
+one origin and CORS never enters the picture. On Vercel this module is not
+used: the CDN serves public/ and api/index.py answers /api, which reproduces
+the same single-origin arrangement.
 """
 
 import mimetypes
@@ -90,10 +92,7 @@ class Handler(BaseHTTPRequestHandler):
 
     # -- static files ----------------------------------------------------
     def _serve_file(self, path):
-        if path.startswith("/uploads/"):
-            target = _resolve(config.UPLOAD_DIR, path[len("/uploads/"):])
-            cache = "public, max-age=31536000, immutable"   # names are content-random
-        elif path in ("/admin", "/admin/"):
+        if path in ("/admin", "/admin/"):
             target, cache = config.ADMIN_DIR / "index.html", "no-cache"
         elif path.startswith("/admin/"):
             target, cache = _resolve(config.ADMIN_DIR, path[len("/admin/"):]), "no-cache"

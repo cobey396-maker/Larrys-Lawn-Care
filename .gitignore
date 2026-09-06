@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local data (never deploy these; production uses Turso)
+backend/data/
+backend/uploads/
+*.db
+*.db-wal
+*.db-shm
+
+# Tooling
+.vercel/
+.env
+.env.local
+.DS_Store

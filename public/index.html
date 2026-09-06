@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%234a7c3f'/%3E%3C/svg%3E">
+<script>
+  // The design runtime fetches React from unpkg unless __resources points it
+  // somewhere else. Serving our own copies keeps the site up when unpkg is
+  // not, and lets it load from the same CDN as the rest of the page.
+  window.__resources = {
+    "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "/vendor/react.production.min.js",
+    "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "/vendor/react-dom.production.min.js"
+  };
+</script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/organic-eb57d61e-60ce-4b58-a3b1-bc2dfc624dab/styles.css">
+<script src="_ds/organic-eb57d61e-60ce-4b58-a3b1-bc2dfc624dab/_ds_bundle.js"></script>
+<script src="image-slot.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>
+body { margin: 0; text-wrap: pretty; overflow-x: clip; background: var(--color-bg); color: var(--color-text); }
+a { color: var(--color-accent-700); text-decoration: none; }
+a:hover { color: var(--color-accent-800); }
+</style>
+</helmet>
+
+<div style="min-height:100vh;display:flex;flex-direction:column;font-family:var(--font-body)">
+
+<nav class="nav" style="padding-inline:max(24px, calc((100% - 1160px) / 2 + 24px));position:sticky;top:0;z-index:20;background:var(--color-bg)">
+  <span class="nav-brand" style="display:flex;align-items:center;gap:10px">
+    <span style="width:26px;height:26px;border-radius:50%;background:var(--color-accent-2-500);display:inline-block;flex:none"></span>
+    Larry&rsquo;s Lawn Care
+  </span>
+  <a href="#" onClick="{{ goHome }}" style="font-weight:600">Home</a>
+  <a href="#" onClick="{{ goServices }}" style="font-weight:600">Services</a>
+  <a href="#" onClick="{{ goGallery }}" style="font-weight:600">Gallery</a>
+  <a href="#" onClick="{{ goContact }}" style="font-weight:600">Contact</a>
+  <a class="btn btn-primary" href="tel:+13365550184" style="text-decoration:none">Call (336) 555-0184</a>
+</nav>
+
+<div style="flex:1;width:100%;max-width:1160px;margin:0 auto;padding:0 24px;box-sizing:border-box">
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <section style="position:relative;padding:88px 0 56px">
+    <div style="position:absolute;right:-140px;top:-200px;width:400px;height:400px;border-radius:50%;background:var(--color-accent-2-200);z-index:-1;pointer-events:none"></div>
+    <span style="display:block;font-size:13px;line-height:14px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 18px">North Carolina &amp; West Tennessee &middot; Since 2009</span>
+    <h1 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(40px,5.6vw,74px);line-height:1.08;margin:0 0 0 -.028em;max-width:20ch">
+      <span style="display:block">Mowed on time.</span>
+      <span style="display:block">Planted to last.</span>
+    </h1>
+    <p style="font-size:17px;line-height:28px;max-width:56ch;margin:26px 0 0">Larry and a small crew keep yards, gardens, fences and decks in good order across the Piedmont and out to Jackson. Same trucks, same faces, every visit. Call and you&rsquo;ll talk to someone who has stood in a yard like yours.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:28px">
+      <a class="btn btn-primary" href="tel:+13365550184" style="text-decoration:none">Call (336) 555-0184</a>
+      <a class="btn btn-ghost" href="#" onClick="{{ goServices }}" style="text-decoration:none">See what we do</a>
+    </div>
+  </section>
+
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;padding:16px 0 56px">
+    <div style="background:var(--color-accent-100);border-radius:var(--radius-lg);padding:28px">
+      <p style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:40px;line-height:1.1;margin:0;color:var(--color-accent-700)">17</p>
+      <p style="font-size:13px;line-height:18px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;margin:12px 0 0;opacity:.72">Years in business</p>
+    </div>
+    <div style="background:var(--color-accent-2-100);border-radius:var(--radius-lg);padding:28px">
+      <p style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:40px;line-height:1.1;margin:0;color:var(--color-accent-2-700)">1 yr</p>
+      <p style="font-size:13px;line-height:18px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;margin:12px 0 0;opacity:.72">Warranty on every planting</p>
+    </div>
+    <div style="background:var(--color-accent-200);border-radius:var(--radius-lg);padding:28px">
+      <p style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:40px;line-height:1.1;margin:0;color:var(--color-accent-700)">2</p>
+      <p style="font-size:13px;line-height:18px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;margin:12px 0 0;opacity:.72">States served</p>
+    </div>
+    <div style="background:var(--color-accent-2-200);border-radius:var(--radius-lg);padding:28px">
+      <p style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:40px;line-height:1.1;margin:0;color:var(--color-accent-2-800)">Free</p>
+      <p style="font-size:13px;line-height:18px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;margin:12px 0 0;opacity:.72">Estimates, in person</p>
+    </div>
+  </section>
+
+  <section style="padding:8px 0 56px">
+    <span style="display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 20px">What we do</span>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="4">
+        <div class="card">
+          <p class="card-kicker">{{ s.kicker }}</p>
+          <h3 class="card-title">{{ s.title }}</h3>
+          <p class="card-body">{{ s.blurb }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:28px clamp(24px,5vw,80px);align-items:center;padding:16px 0 64px">
+    <div>
+      <span style="display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 16px">How it goes</span>
+      <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:32px;line-height:1.3;margin:0">You call, Larry walks the yard, you get a number</h2>
+      <p style="font-size:15.5px;line-height:28px;opacity:.78;margin:20px 0 0;max-width:50ch">No online forms to fill out twice. We come look at the property, tell you what it needs now and what can wait, and leave a written price that holds for thirty days. Work starts within a week most of the season.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:24px">
+        <span class="tag tag-accent">Licensed</span>
+        <span class="tag tag-accent-2">Insured</span>
+        <span class="tag tag-outline">Weekly or one-time</span>
+      </div>
+    </div>
+    <figure class="washed" style="margin:0;width:min(400px,100%);justify-self:end;border-radius:calc(2 * var(--radius-lg));overflow:hidden">
+      <image-slot id="larry-home-1" shape="rect" placeholder="Drop a photo of Larry or the crew at work" style="width:100%;aspect-ratio:4/5"></image-slot>
+    </figure>
+  </section>
+
+  <section style="padding:0 0 64px">
+    <div style="background:var(--color-accent-2-100);border-radius:calc(2 * var(--radius-lg));padding:48px clamp(24px,4vw,56px)">
+      <h3 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:28px;line-height:1.25;margin:0">Ready for the yard to stop nagging you?</h3>
+      <p style="font-size:15.5px;line-height:28px;opacity:.78;margin:16px 0 0;max-width:52ch">Call for a free estimate. Mowing routes fill up first in spring, so earlier is better.</p>
+      <a class="btn btn-primary" href="tel:+13365550184" style="text-decoration:none;margin-top:24px">Call (336) 555-0184</a>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isServices }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:64px 0 40px">
+    <span style="display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 18px">Services</span>
+    <h1 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(36px,4.6vw,58px);line-height:1.1;margin:0 0 0 -.028em;max-width:22ch">Four things, done properly</h1>
+    <p style="font-size:17px;line-height:28px;max-width:56ch;margin:24px 0 0">We stay small on purpose. These are the jobs we take, priced per property after a walk-through.</p>
+  </section>
+
+  <section style="padding:0 0 56px;display:flex;flex-direction:column;gap:8px">
+    <sc-for list="{{ services }}" as="s" hint-placeholder-count="4">
+      <div style="display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:20px clamp(24px,4vw,64px);align-items:start;padding:32px 0;border-top:1px solid var(--color-neutral-200)">
+        <div>
+          <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:26px;line-height:1.25;margin:0">{{ s.title }}</h2>
+          <p style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;margin:12px 0 0;color:var(--color-accent-700)">{{ s.price }}</p>
+        </div>
+        <div>
+          <p style="font-size:15.5px;line-height:28px;opacity:.8;margin:0;max-width:56ch">{{ s.detail }}</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
+            <sc-for list="{{ s.tags }}" as="t" hint-placeholder-count="3">
+              <span class="tag tag-neutral">{{ t }}</span>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+  </section>
+
+  <section style="padding:0 0 64px">
+    <div style="background:var(--color-accent-100);border-radius:calc(2 * var(--radius-lg));padding:44px clamp(24px,4vw,56px)">
+      <h3 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:26px;line-height:1.25;margin:0">The warranty, plainly</h3>
+      <p style="font-size:15.5px;line-height:28px;opacity:.8;margin:16px 0 0;max-width:56ch">Anything we plant is covered for one full year. If it dies and you watered it, we replace it and put it back in the ground at no charge. Fences and decks carry a two-year workmanship guarantee.</p>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isGallery }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:64px 0 40px">
+    <span style="display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 18px">Gallery</span>
+    <h1 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(36px,4.6vw,58px);line-height:1.1;margin:0 0 0 -.028em;max-width:22ch">Yards we&rsquo;ve kept</h1>
+    <p style="font-size:17px;line-height:28px;max-width:56ch;margin:24px 0 0">Drop your own photos into any frame below &mdash; captions can be edited to match.</p>
+  </section>
+
+  <section style="padding:0 0 64px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px 24px">
+    <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="6">
+      <figure style="margin:0;display:flex;flex-direction:column;gap:12px">
+        <div class="washed" style="border-radius:var(--radius-lg);overflow:hidden">
+          <image-slot id="{{ g.id }}" shape="rect" placeholder="{{ g.hint }}" style="width:100%;aspect-ratio:4/3"></image-slot>
+        </div>
+        <figcaption style="font-size:14px;line-height:22px;opacity:.75">{{ g.caption }}</figcaption>
+      </figure>
+    </sc-for>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:64px 0 40px">
+    <span style="display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 18px">Contact</span>
+    <h1 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(36px,4.6vw,58px);line-height:1.1;margin:0 0 0 -.028em;max-width:22ch">Call Larry</h1>
+    <a href="tel:+13365550184" style="display:inline-block;font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(34px,4.4vw,52px);line-height:1.15;margin:28px 0 0;color:var(--color-accent-700);text-decoration:none">(336) 555-0184</a>
+    <p style="font-size:17px;line-height:28px;max-width:52ch;margin:20px 0 0">Monday to Saturday, 7am to 6pm. If the crew is on a mower, leave a message and Larry calls back the same evening.</p>
+  </section>
+
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;padding:0 0 48px">
+    <div class="card">
+      <p class="card-kicker">Service area</p>
+      <p class="card-body">Greensboro, Winston-Salem, High Point and the surrounding Piedmont; Jackson, Dyersburg and West Tennessee.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Email</p>
+      <p class="card-body"><a href="mailto:larry@larryslawncare.com">larry@larryslawncare.com</a></p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Estimates</p>
+      <p class="card-body">Free, in person, written down. Price holds thirty days.</p>
+    </div>
+  </section>
+
+  <section style="padding:0 0 64px">
+    <div style="background:var(--color-accent-2-100);border-radius:calc(2 * var(--radius-lg));padding:44px clamp(24px,4vw,56px)">
+      <h3 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:26px;line-height:1.25;margin:0">Rather we call you?</h3>
+      <p style="font-size:15.5px;line-height:28px;opacity:.78;margin:14px 0 0;max-width:50ch">Leave a number and the property address. We&rsquo;ll ring within a day.</p>
+      <div style="display:flex;gap:12px;align-items:stretch;flex-wrap:wrap;max-width:520px;margin-top:24px">
+        <input id="callback-phone" class="input" type="tel" name="phone" autocomplete="tel" placeholder="Your phone number" aria-label="Your phone number" style="flex:1;min-width:200px;min-height:38px">
+        <input id="callback-website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" placeholder="Leave this empty" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+        <button type="button" class="btn btn-primary" style="min-height:38px" onClick="{{ requestCall }}">{{ callbackLabel }}</button>
+      </div>
+      <sc-if value="{{ hasCallbackNote }}" hint-placeholder-val="{{ false }}">
+        <p role="status" aria-live="polite" style="font-size:14px;line-height:22px;margin:14px 0 0;max-width:50ch">{{ callbackNote }}</p>
+      </sc-if>
+    </div>
+  </section>
+</sc-if>
+
+</div>
+
+<footer style="width:100%;max-width:1160px;margin:0 auto;padding:32px 24px 48px;box-sizing:border-box;font-size:13px;line-height:24px;opacity:.7;display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between">
+  <span>Larry&rsquo;s Lawn Care &middot; Serving North Carolina and West Tennessee since 2009</span>
+  <span>Licensed &amp; insured &middot; Placeholder phone and email &mdash; send me the real ones</span>
+</footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  state = {
+    page: 'home',
+    called: false,
+    sending: false,
+    note: '',
+    content: null,
+  };
+
+  // The copy below ships with the page, so it renders on the first paint and
+  // still reads correctly if the API is unreachable. Live content from the
+  // database replaces it a moment later, when and if it arrives.
+  componentDidMount() {
+    if (this._fetched) return;      // didMount re-fires after a logic swap
+    this._fetched = true;
+    fetch('/api/content', { headers: { Accept: 'application/json' } })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data) => { if (data) this.setState({ content: data }); })
+      .catch(() => {});             // keep the built-in copy
+  }
+
+  go(page) { return (e) => { if (e) e.preventDefault(); this.setState({ page }); window.scrollTo(0, 0); }; }
+
+  requestCall() {
+    if (this.state.sending || this.state.called) return;
+    const field = document.getElementById('callback-phone');
+    const phone = field ? field.value.trim() : '';
+    if (!phone) {
+      if (field) field.focus();
+      this.setState({ note: 'Add a phone number and we will ring you back.' });
+      return;
+    }
+    const trap = document.getElementById('callback-website');
+    this.setState({ sending: true, note: '' });
+
+    fetch('/api/leads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone: phone, source: 'website', website: trap ? trap.value : '' }),
+    })
+      .then((response) => response.json().then((data) => ({ ok: response.ok, data })))
+      .then((result) => {
+        if (result.ok && result.data && result.data.ok) {
+          if (field) field.value = '';
+          this.setState({ called: true, sending: false, note: '' });
+        } else {
+          const error = result.data && result.data.error;
+          this.setState({
+            sending: false,
+            note: (error && error.message) || 'That did not go through. Please call instead.',
+          });
+        }
+      })
+      .catch(() => this.setState({
+        sending: false,
+        note: 'We could not reach the office just now. Please call instead.',
+      }));
+  }
+
+  // Falls back to the design's own list whenever the API has not answered.
+  liveServices() {
+    const live = this.state.content && this.state.content.services;
+    return live && live.length ? live : FALLBACK_SERVICES;
+  }
+
+  // The image-slot id has to stay the slug, because that is the key the
+  // photos in image-slots.state.json are filed under.
+  liveGallery() {
+    const live = this.state.content && this.state.content.gallery;
+    if (!live || !live.length) return FALLBACK_GALLERY;
+    return live.map((item) => ({ id: item.slug, caption: item.caption, hint: item.hint }));
+  }
+
+  confirmation() {
+    const site = this.state.content && this.state.content.site;
+    return (site && site.callback_confirmation) || 'Got it — talk soon';
+  }
+
+  renderVals() {
+    const p = this.state.page;
+    return {
+      isHome: p === 'home', isServices: p === 'services', isGallery: p === 'gallery', isContact: p === 'contact',
+      goHome: this.go('home'), goServices: this.go('services'), goGallery: this.go('gallery'), goContact: this.go('contact'),
+      callbackLabel: this.state.sending
+        ? 'Sending…'
+        : this.state.called ? this.confirmation() : 'Request a callback',
+      hasCallbackNote: !!this.state.note,
+      callbackNote: this.state.note,
+      requestCall: () => this.requestCall(),
+      services: this.liveServices(),
+      gallery: this.liveGallery(),
+    };
+  }
+}
+
+const FALLBACK_SERVICES = [
+  { kicker: 'Weekly or biweekly', title: 'Lawn care & mowing', blurb: 'Cut, edge, blow off the walks. Same day each week so you can plan around it.', price: 'From $45 a visit', detail: 'Mowing at the right height for your grass type, string-trimmed edges, walks and drive blown clean, clippings hauled off if you want them gone. Fescue in the Piedmont gets a different cut height than the bermuda out west, and we set it by season rather than by habit.', tags: ['Fescue & bermuda', 'Edging', 'Leaf season'] },
+  { kicker: 'Plans & planting', title: 'Garden design', blurb: 'A drawn plan for the whole yard, planted in stages if that suits the budget.', price: 'Plans from $350', detail: 'We measure the property, note the sun and the drainage, and draw a plan you can build in one season or five. Plants are chosen for what actually thrives here — natives first, then the ones worth the extra water. You keep the drawing whether or not we do the planting.', tags: ['Measured plan', 'Native-first', 'Phased builds'] },
+  { kicker: 'Beds & borders', title: 'Planting & borders', blurb: 'Shrubs, perennials and clean bed lines that hold their shape.', price: 'Quoted per bed', detail: 'Cut bed edges, amended soil, plants set at the right spacing for what they will be in five years rather than what looks full on day one. Mulch to two inches, no volcano mounds against the trunks. One-year warranty on everything we put in the ground.', tags: ['Bed edging', 'Mulch', '1-year warranty'] },
+  { kicker: 'Built on site', title: 'Fences & decks', blurb: 'Pressure-treated and cedar builds, set in concrete, squared up.', price: 'Quoted per project', detail: 'Privacy fence, picket, split rail and gates that still swing true in year ten. Decks framed to code with hidden fasteners if you want a clean surface. Two-year workmanship guarantee, and we pull the permits where the county wants them.', tags: ['Cedar & PT pine', 'Gates', '2-year workmanship'] }
+];
+
+const FALLBACK_GALLERY = [
+  { id: 'll-g1', caption: 'Fescue lawn kept through a dry August — Greensboro', hint: 'Wide shot of a healthy mowed lawn' },
+  { id: 'll-g2', caption: 'Front border rebuilt with natives — Winston-Salem', hint: 'Planted bed along a front walk' },
+  { id: 'll-g3', caption: 'Cedar privacy fence, 6ft with a walk gate — High Point', hint: 'New fence run along a property line' },
+  { id: 'll-g4', caption: 'Backyard deck, hidden fasteners — Jackson, TN', hint: 'Finished deck off the back of a house' },
+  { id: 'll-g5', caption: 'Bed edges cut fresh for spring — Dyersburg', hint: 'Close-up of a crisp bed edge and mulch' },
+  { id: 'll-g6', caption: 'Whole-yard plan, second season in — Piedmont', hint: 'Yard showing a planted design filling in' }
+];
+
+</script>
+</body>
+</html>
