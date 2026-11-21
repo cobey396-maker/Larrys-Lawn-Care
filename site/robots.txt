@@ -1,0 +1,3 @@
+# Demo deployment, not the business's live site. Placeholder contact details.
+User-agent: *
+Disallow: /
